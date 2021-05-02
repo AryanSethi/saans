@@ -1,0 +1,7 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    prefer_const_constructors_in_immutables: false
+    avoid_dynamic_calls: false
+    avoid_void_async: false

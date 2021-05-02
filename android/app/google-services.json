@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "935954251421",
+    "project_id": "saans-6f2c6",
+    "storage_bucket": "saans-6f2c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935954251421:android:ed2dde3619bea8b49d1e74",
+        "android_client_info": {
+          "package_name": "com.covid.saans"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935954251421-8213h6qvea2ubc08v5g9f8ht2si36be7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC2N-0Ug4gVPzamfLM5DUaFI6dlHnWcKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935954251421-8213h6qvea2ubc08v5g9f8ht2si36be7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
