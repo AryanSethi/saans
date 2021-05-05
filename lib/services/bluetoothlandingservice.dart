@@ -16,7 +16,7 @@ class BluetoothLandingPageService extends StatelessWidget {
           final state = snap.data;
           if (state == BluetoothState.on) {
             debugPrint("[LOG] bluetooth on");
-            return ScanDevicesScreen();
+            return const ScanDevicesScreen();
           } else if (state == BluetoothState.off) {
             debugPrint("[LOG] bluetooth off");
             return BluetoothOffScreen(

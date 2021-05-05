@@ -41,20 +41,29 @@ class HomePage extends StatelessWidget {
                   streams: Tuple2(device.services, device.state),
                   builder: (context, snap) {
                     return Container(
+                      color: Colors.red,
+                      padding: EdgeInsets.all(30),
                       alignment: Alignment.center,
                       child: Column(
                         children: snap.item1.data.map((service) {
-                          return Column(
-                              children: service.characteristics.map(
-                            (c) {
-                              return InkWell(
-                                onTap: () async {
-                                  await c.read();
-                                },
-                                child: Text(c.value.toString()),
-                              );
-                            },
-                          ).toList());
+                          return Container(
+                            color: Colors.green,
+                            child: Column(
+                                children: service.characteristics.map(
+                              (c) {
+                                return Container(
+                                  color: Colors.yellow,
+                                  padding: EdgeInsets.all(15),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await c.read();
+                                    },
+                                    child: Text("Here\n${c.value.toString()}"),
+                                  ),
+                                );
+                              },
+                            ).toList()),
+                          );
                         }).toList(),
                       ),
                     );
