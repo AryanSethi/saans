@@ -64,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  convert:
+    dependency: transitive
+    description:
+      name: convert
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   crypto:
     dependency: transitive
     description:
@@ -141,11 +148,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_blue:
+    dependency: "direct main"
+    description:
+      name: flutter_blue
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -233,6 +254,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  multiple_stream_builder:
+    dependency: "direct main"
+    description:
+      name: multiple_stream_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   nested:
     dependency: transitive
     description:
@@ -317,6 +345,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   provider:
     dependency: "direct main"
     description:
@@ -324,6 +359,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.5"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.26.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -371,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:

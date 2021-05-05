@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:saans/screens/authentication/phone_signup.dart';
 import 'package:saans/screens/home/homepage.dart';
 import 'package:saans/services/auth.dart';
+import 'package:saans/services/bluetoothlandingservice.dart';
 import 'package:saans/services/hiveservice.dart';
 import 'package:saans/standards/global_strings.dart';
 import 'package:saans/standards/loading_screen.dart';
@@ -35,7 +36,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
         if (snap.connectionState == ConnectionState.done &&
             user != null &&
             phone) {
-          return HomePage();
+          return BluetoothLandingPageService();
         } else if (snap.connectionState == ConnectionState.done &&
             user == null) {
           return PhoneSignUp();
