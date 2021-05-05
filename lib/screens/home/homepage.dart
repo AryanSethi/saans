@@ -9,13 +9,13 @@ import 'package:saans/standards/global_strings.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    HiveService _hive = HiveService();
+    final HiveService _hive = HiveService();
     return FutureBuilder(
       future: _hive.getData(uname, genInfoBox),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         String username;
         snapshot.connectionState == ConnectionState.done
-            ? username = snapshot.data[0].toString()
+            ? username = snapshot.data.toString()
             : username = "";
         return SafeArea(
             child: Scaffold(
