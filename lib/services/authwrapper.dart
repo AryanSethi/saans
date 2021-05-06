@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:saans/screens/authentication/phone_signup.dart';
-import 'package:saans/screens/home/homepage.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/bluetoothlandingservice.dart';
 import 'package:saans/services/hiveservice.dart';

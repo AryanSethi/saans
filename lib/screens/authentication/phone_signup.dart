@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/hiveservice.dart';
 import 'package:saans/standards/global_strings.dart';
+import 'package:saans/standards/loading_screen.dart';
 
 class PhoneSignUp extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _PhoneSignUpState extends State<PhoneSignUp> {
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final AuthService _auth = AuthService();
+  bool loading = false;
   @override
   void dispose() {
     _numberController.dispose();
@@ -25,7 +27,6 @@ class _PhoneSignUpState extends State<PhoneSignUp> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -81,6 +82,7 @@ class _PhoneSignUpState extends State<PhoneSignUp> {
               ),
               Container(
                   padding: EdgeInsets.only(top: height * 0.03),
+                  margin: EdgeInsets.symmetric(horizontal: width * 0.2),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -96,20 +98,26 @@ class _PhoneSignUpState extends State<PhoneSignUp> {
                       HiveService().addDataInBox(
                           uname, _nameController.text, genInfoBox);
                       if (_auth.validatePhoneNumer(_numberController.text)) {
+                        //TODO: add snackbar saying "Sending OTP"
                         await _auth.sendPhoneVerification(
                             _numberController.text, context);
+                        loading = true;
                       } else {
                         //TODO: display a snackbar here
                         debugPrint(
                             "[LOG] from phoneSignup=> Phone number entered is not valid");
                       }
                     },
-                    child: Text(
-                      getOTP,
-                      style: GoogleFonts.raleway(
-                          textStyle: const TextStyle(
-                              color: Colors.white, fontSize: 23)),
-                    ),
+                    child: loading != true
+                        ? Text(
+                            getOTP,
+                            style: GoogleFonts.raleway(
+                                textStyle: const TextStyle(
+                                    color: Colors.white, fontSize: 23)),
+                          )
+                        : LoadingWidget(
+                            loadingType: 1,
+                          ),
                   )),
             ],
           ),

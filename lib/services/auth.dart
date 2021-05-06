@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saans/screens/authentication/otp_screen.dart';
-import 'package:saans/screens/home/homepage.dart';
+import 'package:saans/services/bluetoothlandingservice.dart';
 import 'package:saans/services/firestore.dart';
 import 'package:saans/services/hiveservice.dart';
 import 'package:saans/standards/global_strings.dart';
@@ -64,7 +64,7 @@ class AuthService {
               "[LOG] from SendPhoneVerification => verification complete, credential = $credential");
         },
         verificationFailed: (_) => debugPrint(
-            "[LOG] from SendPhoneVerification => phone number verification failed"), //TODO : show a snackbar here saying, no. of otp limits exceded
+            "[LOG] from SendPhoneVerification => phone number verification failed"), //TODO : show a snackbar here saying, check internet
         // ignore: void_checks
         codeSent: (String verificationID, [int forcedResendingToken]) {
           debugPrint("[LOG] from sendPhoneverification => code sent");
@@ -94,7 +94,8 @@ class AuthService {
 
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(
+                builder: (context) => BluetoothLandingPageService()),
             (route) => false);
       });
     } catch (e) {

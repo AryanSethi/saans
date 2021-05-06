@@ -2,17 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
-import 'package:saans/screens/home/homepage.dart';
-import 'package:saans/screens/home/temp_home.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/authwrapper.dart';
-import 'package:saans/services/bluetoothlandingservice.dart';
 import 'package:saans/services/hiveservice.dart';
-import 'package:saans/standards/loading_screen.dart';
-
-import 'screens/home/temp_home.dart';
 import 'services/authwrapper.dart';
 
 void main() async {

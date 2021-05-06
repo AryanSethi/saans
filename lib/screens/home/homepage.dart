@@ -6,7 +6,6 @@ import 'package:saans/screens/authentication/phone_signup.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/hiveservice.dart';
 import 'package:saans/standards/global_strings.dart';
-import 'package:multiple_stream_builder/multiple_stream_builder.dart';
 import 'package:saans/standards/loading_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget {
     final HiveService _hive = HiveService();
     return RefreshIndicator(
       onRefresh: () => device.discoverServices(),
-      child: FutureBuilder(
+      child: FutureBuilder<dynamic>(
         future: _hive.getData(uname, genInfoBox),
         builder: (BuildContext context, AsyncSnapshot unameSnap) {
           String username;
