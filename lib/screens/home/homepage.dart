@@ -16,73 +16,72 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("[LOG] device sent to homepage => $device");
     final HiveService _hive = HiveService();
-    return FutureBuilder(
-      future: _hive.getData(uname, genInfoBox),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        String username;
-        snapshot.connectionState == ConnectionState.done
-            ? username = snapshot.data.toString()
-            : username = "";
-        return SafeArea(
-            child: Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.black87,
-                  elevation: 20,
-                  title: Text(
-                    "Howdy $username!",
-                    style: GoogleFonts.raleway(
-                        textStyle: const TextStyle(
-                      color: Colors.white,
-                    )),
+    return RefreshIndicator(
+      onRefresh: () => device.discoverServices(),
+      child: FutureBuilder(
+        future: _hive.getData(uname, genInfoBox),
+        builder: (BuildContext context, AsyncSnapshot unameSnap) {
+          String username;
+          unameSnap.connectionState == ConnectionState.done
+              ? username = unameSnap.data.toString()
+              : username = "";
+          return SafeArea(
+              child: Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.black87,
+                    elevation: 20,
+                    title: Text(
+                      "Howdy $username!",
+                      style: GoogleFonts.raleway(
+                          textStyle: const TextStyle(
+                        color: Colors.white,
+                      )),
+                    ),
+                    centerTitle: true,
+                    actions: <Widget>[popupmenubotton(context)],
                   ),
-                  centerTitle: true,
-                  actions: <Widget>[popupmenubotton(context)],
-                ),
-                body: StreamBuilder2<List<BluetoothService>,
-                    BluetoothDeviceState>(
-                  streams: Tuple2(device.services, device.state),
-                  builder: (context, snap) {
-                    if (snap.item1.hasData) {
-                      print('data1 => ${snap.item1.data}');
-                    }
-                    if (snap.item2.hasData) {
-                      print('data2 => ${snap.item2.data}');
-                    }
-                    return snap.item1.hasData && snap.item2.hasData
-                        ? Container(
-                            color: Colors.red,
-                            padding: const EdgeInsets.all(30),
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: snap.item1.data.map((service) {
-                                return Container(
-                                  color: Colors.green,
-                                  child: Column(
-                                      children: service.characteristics.map(
-                                    (c) {
-                                      return Container(
-                                        color: Colors.yellow,
-                                        padding: const EdgeInsets.all(15),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await c.read();
-                                          },
-                                          child: Text(
-                                              "Here\n${c.value.toString()}"),
-                                        ),
-                                      );
-                                    },
-                                  ).toList()),
-                                );
-                              }).toList(),
-                            ),
-                          )
-                        : LoadingWidget(
-                            loadingType: 0,
-                          );
-                  },
-                )));
-      },
+                  body: StreamBuilder<BluetoothDeviceState>(
+                    stream: device.state,
+                    builder: (context, deviceStateSnap) {
+                      return deviceStateSnap.data ==
+                              BluetoothDeviceState.connected
+                          ? StreamBuilder<List<BluetoothService>>(
+                              stream: device.services,
+                              builder:
+                                  (BuildContext context, deviceServicesSnap) {
+                                if (deviceServicesSnap.hasData &&
+                                    device.discoverServices() != null) {
+                                  return Column(
+                                    children: deviceServicesSnap.data.map((s) {
+                                      print("service uuid = ${s.uuid}");
+                                      if (s.uuid
+                                              .toString()
+                                              .toUpperCase()
+                                              .substring(4, 8) ==
+                                          '5343') {
+                                        return Column(
+                                          children: s.characteristics.map((c) {
+                                            return StreamBuilder<List<int>>(
+                                                stream: c.value,
+                                                initialData: c.lastValue,
+                                                builder: (context, valSnap) {
+                                                  return Text(
+                                                      valSnap.data.toString());
+                                                });
+                                          }).toList(),
+                                        );
+                                      }
+                                    }).toList(),
+                                  );
+                                } else {
+                                  return LoadingWidget();
+                                }
+                              })
+                          : LoadingWidget();
+                    },
+                  )));
+        },
+      ),
     );
   }
 }

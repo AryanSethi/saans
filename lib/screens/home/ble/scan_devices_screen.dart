@@ -57,12 +57,18 @@ class ScanDevicesScreen extends StatelessWidget {
                                         margin: EdgeInsets.symmetric(
                                             horizontal: width * 0.05),
                                         child: ElevatedButton(
-                                          onPressed: () => Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomePage(
-                                                        device: res,
-                                                      ))),
+                                          onPressed: () {
+                                            res
+                                                .discoverServices()
+                                                .then((value) {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomePage(
+                                                            device: res,
+                                                          )));
+                                            });
+                                          },
                                           child: const Text('Start monitoring'),
                                         ),
                                       );
@@ -88,13 +94,16 @@ class ScanDevicesScreen extends StatelessWidget {
                       child: (res != null && deviceFound == false)
                           ? ScannedDeviceTile(
                               result: res,
-                              onTap: () => Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) {
+                              onTap: () {
                                 res.device.connect();
-                                return HomePage(
-                                  device: res.device,
-                                );
-                              })),
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  res.device.discoverServices();
+                                  return HomePage(
+                                    device: res.device,
+                                  );
+                                }));
+                              },
                             )
                           : Container(),
                     );
