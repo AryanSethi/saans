@@ -10,13 +10,13 @@ class ScanDevicesScreen extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    //final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     bool deviceFound = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Find Devices',
+          'Find your device',
           textAlign: TextAlign.center,
         ),
       ),

@@ -37,7 +37,7 @@ dependencies:
   cloud_firestore: ^1.0.7
   flutter_blue: ^0.8.0
   multiple_stream_builder: ^1.1.1
-
+  syncfusion_flutter_charts: ^19.1.59
 
 
 
