@@ -14,6 +14,11 @@ class HomePage extends StatelessWidget {
   HomePage({this.device});
   @override
   Widget build(BuildContext context) {
+    read(BluetoothCharacteristic c) async {
+      await c.setNotifyValue(!c.isNotifying);
+      await c.read();
+    }
+
     debugPrint("[LOG] device sent to homepage => $device");
     final HiveService _hive = HiveService();
     return RefreshIndicator(
@@ -59,17 +64,34 @@ class HomePage extends StatelessWidget {
                                               .toUpperCase()
                                               .substring(4, 8) ==
                                           '5343') {
+                                        print("FOund the required service");
                                         return Column(
                                           children: s.characteristics.map((c) {
-                                            return StreamBuilder<List<int>>(
-                                                stream: c.value,
-                                                initialData: c.lastValue,
-                                                builder: (context, valSnap) {
-                                                  return Text(
-                                                      valSnap.data.toString());
-                                                });
+                                            print('Char');
+                                            print(c.uuid);
+                                            if (c.uuid.toString().trim() ==
+                                                "49535343-1e4d-4bd9-ba61-23c647249616") {
+                                              read(c);
+                                              print("found the char");
+                                              return StreamBuilder<List<int>>(
+                                                  stream: c.value,
+                                                  initialData: c.lastValue,
+                                                  builder: (context, valSnap) {
+                                                    final value = valSnap.data;
+                                                    print(
+                                                        "Val snap = > ${value.toString()}");
+                                                    return valSnap.hasData
+                                                        ? Text(value.toString())
+                                                        : Text("No data yet");
+                                                  });
+                                            } else {
+                                              print("char id dindnt match");
+                                              return Container();
+                                            }
                                           }).toList(),
                                         );
+                                      } else {
+                                        return Container();
                                       }
                                     }).toList(),
                                   );

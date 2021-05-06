@@ -12,6 +12,9 @@ import 'package:saans/services/bluetoothlandingservice.dart';
 import 'package:saans/services/hiveservice.dart';
 import 'package:saans/standards/loading_screen.dart';
 
+import 'screens/home/temp_home.dart';
+import 'services/authwrapper.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,6 +36,6 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             //routes: {},
             title: 'Saans',
-            home: BluetoothLandingPageService()));
+            home: AuthWrapper()));
   }
 }
