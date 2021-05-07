@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:saans/screens/authentication/phone_signup.dart';
+import 'package:saans/screens/home/emergency_contact.dart';
 import 'package:saans/screens/home/graphs/spo2_graph.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/hiveservice.dart';
@@ -158,10 +159,13 @@ PopupMenuButton popupmenubotton(BuildContext context) {
                 MaterialPageRoute(builder: (context) => PhoneSignUp()),
                 (route) => false)
             : debugPrint("[log] Sign out error"));
+      } else if (fn == addDoc) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => EmergencyContact()));
       }
     },
     itemBuilder: (_) => <PopupMenuItem<String>>[
-      const PopupMenuItem<String>(value: settings, child: Text(settings)),
+      const PopupMenuItem<String>(value: addDoc, child: Text(addDoc)),
       const PopupMenuItem<String>(value: help, child: Text(help)),
       const PopupMenuItem<String>(value: logout, child: Text(logout)),
     ],
