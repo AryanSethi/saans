@@ -13,4 +13,4 @@ const String verify = 'Verify';
 //popup
 const String logout = 'Log out';
 const String help = 'Help';
-const String settings = 'Settings';
+const String addDoc = 'Add Doctor';
