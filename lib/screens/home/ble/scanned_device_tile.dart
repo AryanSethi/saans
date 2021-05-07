@@ -30,12 +30,12 @@ class ScannedDeviceTile extends StatelessWidget {
 
   Widget _buildAdvRow(BuildContext context, String title, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(title, style: Theme.of(context).textTheme.caption),
-          SizedBox(
+          const SizedBox(
             width: 12.0,
           ),
           Expanded(
@@ -87,11 +87,11 @@ class ScannedDeviceTile extends StatelessWidget {
       title: _buildTitle(context),
       leading: Text(result.rssi.toString()),
       trailing: ElevatedButton(
-        child: Text(
-          'CONNECT',
+        onPressed: (result.advertisementData.connectable) ? onTap : null,
+        child: const Text(
+          'Connect',
           style: TextStyle(color: Colors.red),
         ),
-        onPressed: (result.advertisementData.connectable) ? onTap : null,
       ),
       children: <Widget>[
         _buildAdvRow(

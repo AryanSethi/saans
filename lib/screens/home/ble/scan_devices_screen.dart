@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:saans/screens/home/ble/scanned_device_tile.dart';
+import 'package:saans/screens/home/clean_ble_code.dart';
 import 'package:saans/screens/home/homepage.dart';
 
 class ScanDevicesScreen extends StatelessWidget {
@@ -28,7 +29,6 @@ class ScanDevicesScreen extends StatelessWidget {
             children: <Widget>[
               // Connected devices
               StreamBuilder<List<BluetoothDevice>>(
-                  //TODO: use a single stream provider with multiple streams
                   stream: Stream.periodic(const Duration(seconds: 2))
                       .asyncMap((_) => FlutterBlue.instance.connectedDevices),
                   initialData: const [],
@@ -64,7 +64,7 @@ class ScanDevicesScreen extends StatelessWidget {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          HomePage(
+                                                          CleanCode(
                                                             device: res,
                                                           )));
                                             });
@@ -99,7 +99,7 @@ class ScanDevicesScreen extends StatelessWidget {
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (context) {
                                   res.device.discoverServices();
-                                  return HomePage(
+                                  return CleanCode(
                                     device: res.device,
                                   );
                                 }));
