@@ -16,6 +16,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    int lastspo2 = 0;
+    int lastpulse = 0;
     void read(BluetoothCharacteristic c) async {
       await c.setNotifyValue(
           true); /////////////////////////////////////////////////////////////////////////////////changed
@@ -92,19 +94,22 @@ class HomePage extends StatelessWidget {
                                                       initialData: c.lastValue,
                                                       builder:
                                                           (context, valSnap) {
-                                                        print(
-                                                            (" LULWAAAAAAAA2222222222  $d"));
                                                         final value =
                                                             valSnap.data;
                                                         print(
                                                             "Val snap = > ${value.toString()}");
+                                                        if (value.length > 2) {
+                                                          lastspo2 = value[4];
+                                                          lastpulse = value[3];
+                                                        }
                                                         return valSnap.hasData
                                                             ? uiBuilder(
                                                                 context,
                                                                 height,
                                                                 width,
-                                                                value
-                                                                    .toString())
+                                                                value,
+                                                                lastspo2,
+                                                                lastpulse)
                                                             : Text(
                                                                 "No data yet");
                                                       });
@@ -155,8 +160,24 @@ PopupMenuButton popupmenubotton(BuildContext context) {
   );
 }
 
-Widget uiBuilder(
-    BuildContext context, double height, double width, String data) {
+Widget uiBuilder(BuildContext context, double height, double width,
+    List<int> data, int lastspo2, int lastpulse) {
+  String spo2 = lastspo2.toString();
+  String pulse = lastpulse.toString();
+  if (data.length > 2) {
+    if ((data[4] - lastspo2).abs() <= 1) {
+      spo2 = lastspo2.toString();
+    } else {
+      spo2 = data[4].toString();
+    }
+    if ((data[3] - lastpulse).abs() <= 1) {
+      pulse = lastpulse.toString();
+    } else {
+      pulse = data[3].toString();
+    }
+    // spo2 = data[4].toString();
+    // pulse = data[3].toString();
+  }
   return Column(
     children: [
       Container(
@@ -190,7 +211,7 @@ Widget uiBuilder(
                   padding: EdgeInsets.symmetric(
                       vertical: width * 0.009, horizontal: width * 0.05),
                   child: Text(
-                    data.substring(0, 5),
+                    spo2,
                     style: GoogleFonts.raleway(
                         textStyle: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -226,7 +247,7 @@ Widget uiBuilder(
                   padding: EdgeInsets.symmetric(
                       vertical: width * 0.009, horizontal: width * 0.05),
                   child: Text(
-                    "134",
+                    pulse,
                     style: GoogleFonts.raleway(
                         textStyle: TextStyle(
                             fontWeight: FontWeight.bold,
