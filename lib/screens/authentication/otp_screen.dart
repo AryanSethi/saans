@@ -38,7 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
       child: Container(
         width: width,
         height: height,
-        color: Colors.red[200],
+        color: Colors.white,
         child: Column(
           children: [
             Container(
@@ -48,7 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.raleway(
                     textStyle:
-                        const TextStyle(color: Colors.white, fontSize: 30)),
+                        const TextStyle(color: Colors.black, fontSize: 30)),
               ),
             ),
             Container(
@@ -73,13 +73,13 @@ class _OTPScreenState extends State<OTPScreen> {
                 focusNode: _pinPutFocusNode,
                 controller: _pinPutController,
                 submittedFieldDecoration: _pinPutDecoration.copyWith(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.green[200]),
                 selectedFieldDecoration: _pinPutDecoration,
                 followingFieldDecoration: _pinPutDecoration.copyWith(
                   borderRadius: BorderRadius.circular(5.0),
                   border: Border.all(
-                    color: Colors.white.withOpacity(.5),
+                    color: Colors.blue.withOpacity(.5),
                   ),
                 ),
               ),
@@ -93,12 +93,15 @@ class _OTPScreenState extends State<OTPScreen> {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                   ),
                   onPressed: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text("Sending OTP"),
+                        action:
+                            SnackBarAction(label: "Okay", onPressed: () {})));
                     AuthService().verifyPhone(context, widget.verID,
                         _pinPutController.text, widget.phone);
                   },

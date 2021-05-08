@@ -259,7 +259,7 @@ Widget uiBuilder(BuildContext context, double height, double width,
               ],
             )),
       ),
-      SPO2Graph(),
+      //SPO2Graph(),
     ],
   );
 }
