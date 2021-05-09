@@ -11,11 +11,11 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final HiveService _hive = HiveService();
 
-  Stream<User> get user {
+  Stream<User?> get user {
     return _auth.authStateChanges();
   }
 
-  User currentUserFunc() {
+  User? currentUserFunc() {
     return _auth.currentUser;
   }
 
@@ -63,10 +63,15 @@ class AuthService {
           debugPrint(
               "[LOG] from SendPhoneVerification => verification complete, credential = $credential");
         },
-        verificationFailed: (_) => debugPrint(
-            "[LOG] from SendPhoneVerification => phone number verification failed"), //TODO : show a snackbar here saying, check internet
+        verificationFailed: (_) {
+          debugPrint(
+              "[LOG] from SendPhoneVerification => phone number verification failed");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text("Connect to internet"),
+              action: SnackBarAction(label: "Okay", onPressed: () {})));
+        },
         // ignore: void_checks
-        codeSent: (String verificationID, [int forcedResendingToken]) {
+        codeSent: (String verificationID, [int? forcedResendingToken]) {
           debugPrint("[LOG] from sendPhoneverification => code sent");
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
@@ -87,9 +92,9 @@ class AuthService {
               PhoneAuthProvider.credential(verificationId: otp, smsCode: sms))
           .then((value) {
         _hive.getData(uname, genInfoBox).then((username) {
-          final User currentUser = currentUserFunc();
+          final User currentUser = currentUserFunc()!;
           FirestoreService(uid: currentUser.uid)
-              .addUserData(name: username.toString(), phone: phoneNum);
+              .addLoggerInfo(name: username.toString(), phone: phoneNum);
         });
 
         Navigator.pushAndRemoveUntil(

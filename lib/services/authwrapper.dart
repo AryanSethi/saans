@@ -9,7 +9,7 @@ import 'package:saans/standards/global_strings.dart';
 import 'package:saans/standards/loading_screen.dart';
 
 class AuthWrapper extends StatefulWidget {
-  AuthWrapper({Key key}) : super(key: key);
+  AuthWrapper({Key? key}) : super(key: key);
 
   @override
   _AuthWrapperState createState() => _AuthWrapperState();
@@ -18,8 +18,8 @@ class AuthWrapper extends StatefulWidget {
 class _AuthWrapperState extends State<AuthWrapper> {
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<User>(context);
-    final User currentUser =
+    final User? user = Provider.of<User?>(context);
+    final User? currentUser =
         AuthService().currentUserFunc(); //returns the current user info
     // ignore: avoid_bool_literals_in_conditional_expressions
     final bool phone =

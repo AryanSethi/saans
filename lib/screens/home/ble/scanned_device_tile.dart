@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 class ScannedDeviceTile extends StatelessWidget {
-  const ScannedDeviceTile({Key key, @required this.result, this.onTap})
+  const ScannedDeviceTile({Key? key, required this.result, this.onTap})
       : super(key: key);
 
   final ScanResult result;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   Widget _buildTitle(BuildContext context) {
     if (result.device.name.isNotEmpty) {

@@ -11,7 +11,7 @@ import 'package:saans/standards/global_strings.dart';
 import 'package:saans/standards/loading_screen.dart';
 
 class HomePage extends StatelessWidget {
-  BluetoothDevice device;
+  BluetoothDevice? device;
   HomePage({this.device});
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
     debugPrint("[LOG] device sent to homepage => $device");
     final HiveService _hive = HiveService();
     return RefreshIndicator(
-      onRefresh: () => device.discoverServices(),
+      onRefresh: () => device!.discoverServices(),
       child: FutureBuilder<dynamic>(
         future: _hive.getData(uname, genInfoBox),
         builder: (BuildContext context, AsyncSnapshot unameSnap) {
@@ -56,19 +56,19 @@ class HomePage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: SingleChildScrollView(
                       child: StreamBuilder<BluetoothDeviceState>(
-                        stream: device.state,
+                        stream: device!.state,
                         builder: (context, deviceStateSnap) {
                           return deviceStateSnap.data ==
                                   BluetoothDeviceState.connected
                               ? StreamBuilder<List<BluetoothService>>(
-                                  stream: device.services,
+                                  stream: device!.services,
                                   builder: (BuildContext context,
                                       deviceServicesSnap) {
                                     if (deviceServicesSnap.hasData &&
-                                        device.discoverServices() != null) {
+                                        device!.discoverServices() != null) {
                                       return Column(
                                         children:
-                                            deviceServicesSnap.data.map((s) {
+                                            deviceServicesSnap.data!.map((s) {
                                           print("service uuid = ${s.uuid}");
                                           if (s.uuid
                                                   .toString()
@@ -95,7 +95,7 @@ class HomePage extends StatelessWidget {
                                                       builder:
                                                           (context, valSnap) {
                                                         final value =
-                                                            valSnap.data;
+                                                            valSnap.data!;
                                                         debugPrint(
                                                             "Val snap = > ${value.toString()}");
                                                         if (value.length > 2) {
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
                                                                 value,
                                                                 lastspo2,
                                                                 lastpulse)
-                                                            : Text(
+                                                            : const Text(
                                                                 "No data yet");
                                                       });
                                                 } else {

@@ -7,7 +7,7 @@ import 'package:saans/standards/global_strings.dart';
 class OTPScreen extends StatefulWidget {
   String phone;
   String verID;
-  OTPScreen({@required this.phone, @required this.verID});
+  OTPScreen({required this.phone, required this.verID});
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -54,7 +54,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: width * 0.25),
               child: Text(
-                "\nAn OTP has been sent to your Phone number. Enter it for verification",
+                "\nAn OTP has been sent to your Phone number. Enter it for verification.\nMake sure you have an active internet connection",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.raleway(
                     textStyle: const TextStyle(
@@ -98,10 +98,6 @@ class _OTPScreenState extends State<OTPScreen> {
                         horizontal: 15, vertical: 10),
                   ),
                   onPressed: () async {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text("Sending OTP"),
-                        action:
-                            SnackBarAction(label: "Okay", onPressed: () {})));
                     AuthService().verifyPhone(context, widget.verID,
                         _pinPutController.text, widget.phone);
                   },

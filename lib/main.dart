@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:saans/screens/authentication/otp_screen.dart';
+import 'package:saans/screens/home/emergency_contact.dart';
 import 'package:saans/services/auth.dart';
 import 'package:saans/services/authwrapper.dart';
 import 'package:saans/services/hiveservice.dart';
@@ -23,12 +23,12 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return StreamProvider<User>.value(
+    return StreamProvider<User?>.value(
         value: AuthService().user,
         initialData: null,
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Saans',
-            home: AuthWrapper()));
+            home: EmergencyContact()));
   }
 }

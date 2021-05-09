@@ -6,7 +6,7 @@ import 'package:saans/screens/home/homepage.dart';
 
 class ScanDevicesScreen extends StatelessWidget {
   const ScanDevicesScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class ScanDevicesScreen extends StatelessWidget {
                       .asyncMap((_) => FlutterBlue.instance.connectedDevices),
                   initialData: const [],
                   builder: (c, snapshot) {
-                    BluetoothDevice res;
-                    for (final BluetoothDevice device in snapshot.data) {
+                    BluetoothDevice? res;
+                    for (final BluetoothDevice device in snapshot.data!) {
                       if (device.name == "Mike") {
                         res = device;
                         deviceFound = true;
@@ -58,7 +58,7 @@ class ScanDevicesScreen extends StatelessWidget {
                                             horizontal: width * 0.05),
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            res
+                                            res!
                                                 .discoverServices()
                                                 .then((value) {
                                               Navigator.of(context).push(
@@ -83,8 +83,8 @@ class ScanDevicesScreen extends StatelessWidget {
                   stream: FlutterBlue.instance.scanResults,
                   initialData: const [],
                   builder: (c, snapshot) {
-                    ScanResult res;
-                    for (final ScanResult device in snapshot.data) {
+                    ScanResult? res;
+                    for (final ScanResult device in snapshot.data!) {
                       if (device.device.name == "Mike") {
                         res = device;
                         break;
@@ -95,10 +95,10 @@ class ScanDevicesScreen extends StatelessWidget {
                           ? ScannedDeviceTile(
                               result: res,
                               onTap: () {
-                                res.device.connect();
+                                res!.device.connect();
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (context) {
-                                  res.device.discoverServices();
+                                  res!.device.discoverServices();
                                   return HomePage(
                                     device: res.device,
                                   );
@@ -116,7 +116,7 @@ class ScanDevicesScreen extends StatelessWidget {
         stream: FlutterBlue.instance.isScanning,
         initialData: false,
         builder: (c, snapshot) {
-          if (snapshot.data) {
+          if (snapshot.data!) {
             return FloatingActionButton(
               onPressed: () => FlutterBlue.instance.stopScan(),
               backgroundColor: Colors.red,

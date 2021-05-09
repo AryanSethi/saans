@@ -3,6 +3,12 @@ const String uname = 'uname';
 const String genInfoBox = 'genInfoBox';
 
 //firestore collections and docs
+const String appDownloads = 'appDownloads';
+const String loggerName = 'loggerName';
+const String loggerContact = 'loggerContact';
+const String docName = 'docName';
+const String docContact = 'docContact';
+const String doctors = 'doctors';
 const String users = 'users';
 
 //auth

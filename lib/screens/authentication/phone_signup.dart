@@ -88,37 +88,35 @@ class _PhoneSignUpState extends State<PhoneSignUp> {
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                    ),
-                    onPressed: () async {
-                      HiveService().addDataInBox(
-                          uname, _nameController.text, genInfoBox);
-                      if (_auth.validatePhoneNumer(_numberController.text)) {
-                        //TODO: add snackbar saying "Sending OTP"
-                        await _auth.sendPhoneVerification(
-                            _numberController.text, context);
-                        loading = true;
-                      } else {
-                        //TODO: display a snackbar here
-                        debugPrint(
-                            "[LOG] from phoneSignup=> Phone number entered is not valid");
-                      }
-                    },
-                    child: loading != true
-                        ? Text(
-                            getOTP,
-                            style: GoogleFonts.raleway(
-                                textStyle: const TextStyle(
-                                    color: Colors.white, fontSize: 23)),
-                          )
-                        : LoadingWidget(
-                            loadingType: 1,
-                          ),
-                  )),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                      ),
+                      onPressed: () async {
+                        HiveService().addDataInBox(
+                            uname, _nameController.text, genInfoBox);
+                        if (_auth.validatePhoneNumer(_numberController.text)) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: const Text("Sending OTP"),
+                              action: SnackBarAction(
+                                  label: "Okay", onPressed: () {})));
+                          await _auth.sendPhoneVerification(
+                              _numberController.text, context);
+                          loading = true;
+                        } else {
+                          //TODO: display a snackbar here
+                          debugPrint(
+                              "[LOG] from phoneSignup=> Phone number entered is not valid");
+                        }
+                      },
+                      child: Text(
+                        getOTP,
+                        style: GoogleFonts.raleway(
+                            textStyle: const TextStyle(
+                                color: Colors.white, fontSize: 23)),
+                      ))),
             ],
           ),
         ),
