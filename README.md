@@ -3,9 +3,6 @@ A dummy flutter application to experiment with BLE(Bluetooth Low energy). The ap
 
 <div>
 <img src="https://github.com/AryanSethi/saans/blob/master/samples/1.jpg" height="200" />
-</div>
-
-<div>
 <img src="https://github.com/AryanSethi/saans/blob/master/samples/2.jpg" height="200" />
 </div>
 
