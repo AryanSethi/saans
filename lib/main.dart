@@ -29,6 +29,6 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Saans',
-            home: EmergencyContact()));
+            home: AuthWrapper()));
   }
 }

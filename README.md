@@ -1,16 +1,12 @@
-# saans
+# SAANS
+A dummy flutter application to experiment with BLE(Bluetooth Low energy). The application finds and connects to a Bluetooth Oximeter with a specific MAC Address and shows it's live readings on the phone.
 
-A new Flutter project.
+<div>
+<img src="https://github.com/AryanSethi/saans/blob/master/samples/1.jpg" height="200 />
+</div>
 
-## Getting Started
+<div>
+<img src="https://github.com/AryanSethi/saans/blob/master/samples/2.jpg" height="200" />
+</div>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+At the start of the application, the user is also prompted to register on the application using their phone number (all served by a firebase backend)
